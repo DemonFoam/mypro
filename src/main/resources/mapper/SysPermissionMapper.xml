@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sexflag.mypro.dao.SysPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.sexflag.mypro.pojo.SysPermission">
+    <id column="perm_id" jdbcType="INTEGER" property="permId" />
+    <result column="perm_name" jdbcType="VARCHAR" property="permName" />
+    <result column="perm_url" jdbcType="VARCHAR" property="permUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    perm_id, perm_name,perm_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_permission
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_permission
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sexflag.mypro.pojo.SysPermission">
+    insert into sys_permission (perm_id, perm_name,perm_url)
+    values (#{permId,jdbcType=INTEGER}, #{permName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sexflag.mypro.pojo.SysPermission">
+    insert into sys_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="permId != null">
+        perm_id,
+      </if>
+      <if test="permName != null">
+        perm_name,
+      </if>
+      <if test="permUrl != null">
+        perm_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="permId != null">
+        #{permId,jdbcType=INTEGER},
+      </if>
+      <if test="permName != null">
+        #{permName,jdbcType=VARCHAR},
+      </if>
+      <if test="permUrl != null">
+        #{permUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sexflag.mypro.pojo.SysPermission">
+    update sys_permission
+    <set>
+      <if test="permName != null">
+      perm_name = #{permName,jdbcType=VARCHAR},
+    </if>
+      <if test="permUrl != null">
+        perm_url = #{permUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sexflag.mypro.pojo.SysPermission">
+    update sys_permission
+    set perm_name = #{permName,jdbcType=VARCHAR},
+        perm_url = #{permUrl,jdbcType=VARCHAR}
+    where perm_id = #{permId,jdbcType=INTEGER}
+  </update>
+</mapper>
